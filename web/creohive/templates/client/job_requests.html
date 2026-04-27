@@ -1,0 +1,173 @@
+{% extends 'client/client_index.html' %}
+{% block body %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-5 mb-5">
+  <h2 class="text-center text-gradient fw-bold mb-5">
+    <i class="bi bi-briefcase-fill me-2"></i>Freelancer Job Requests
+  </h2>
+
+  {% if data %}
+  <div class="row">
+    {% for req in data %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 h-100 hover-card">
+        <div class="card-body text-center p-4">
+
+          <!-- Freelancer Photo -->
+          <img src="{{ req.FREELANCER.photo.url }}"
+               class="rounded-circle border border-4 border-primary shadow-sm mb-3"
+               alt="Freelancer Photo"
+               style="width: 120px; height: 120px; object-fit: cover;">
+
+          <!-- Freelancer Details -->
+          <h5 class="card-title fw-bold text-dark mb-1">{{ req.FREELANCER.name }}</h5>
+          <p class="text-muted small mb-3">
+            <i class="bi bi-envelope-fill me-1 text-primary"></i>{{ req.FREELANCER.gmail }}
+          </p>
+
+          <!-- Contact Details -->
+          <ul class="list-group list-group-flush text-start small mb-3 rounded-3 shadow-sm">
+            <li class="list-group-item"><i class="bi bi-telephone-fill text-primary me-2"></i><strong>Phone:</strong> {{ req.FREELANCER.phone }}</li>
+            <li class="list-group-item"><i class="bi bi-mortarboard-fill text-primary me-2"></i><strong>Qualification:</strong> {{ req.FREELANCER.qualification }}</li>
+            <li class="list-group-item"><i class="bi bi-tools text-primary me-2"></i><strong>Skills:</strong> {{ req.FREELANCER.skills }}</li>
+          </ul>
+
+          <!-- Job Information -->
+          <div class="bg-light p-3 rounded-3 shadow-sm text-start mb-3">
+            <h6 class="text-primary fw-bold mb-2">
+              <i class="bi bi-info-circle-fill me-2"></i>Job Information
+            </h6>
+            <p class="mb-1"><strong>Title:</strong> {{ req.JOB.title }}</p>
+            <p class="mb-1"><strong>Experience:</strong> {{ req.JOB.experience }}</p>
+            <p class="mb-1"><strong>Description:</strong> {{ req.JOB.discription }}</p>
+            <p class="mb-0"><strong>Requested On:</strong> {{ req.date }}</p>
+{#            <p class="mb-0"><strong>Login id  On:</strong> {{ req.FREELANCER.LOGIN.id }}</p>#}
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-3">
+            {% if req.status == "Pending" %}
+              <span class="badge bg-warning text-dark fs-6 mb-3"><i class="bi bi-hourglass-split me-1"></i> Pending</span><br>
+              <a href="/myapp/client_job_requests_approved/{{ req.id }}" class="btn btn-success btn-sm mx-1 px-3 shadow-sm">
+                <i class="bi bi-check-circle me-1"></i> Verify
+              </a>
+              <a href="/myapp/client_job_requests_rejected/{{ req.id }}" class="btn btn-danger btn-sm mx-1 px-3 shadow-sm">
+                <i class="bi bi-x-circle me-1"></i> Reject
+              </a>
+
+            {% elif req.status == "Approved"  %}
+              <div class="d-flex flex-column align-items-center">
+                <span class="badge bg-success fs-6 mb-3">
+                  <i class="bi bi-check-circle-fill me-1"></i> Approved
+                </span>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                  <a href="/myapp/client_chat_to_freelancer/{{ req.FREELANCER.LOGIN.id }}#a" class="btn btn-outline-primary btn-sm shadow-sm px-3">
+                    <i class="bi bi-chat-dots-fill me-1"></i> Chat
+                  </a>
+
+                  <a href="/myapp/client_view_work_freelancer/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                    <i class="bi bi-briefcase-fill me-1"></i> Work Status
+                  </a>
+
+                    <a href="/myapp/client_review/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                    <i class="bi bi-briefcase-fill me-1"></i>review
+                     </a>
+
+{#                    <a href="/myapp/client_job_requests_rejected/{{ req.id }}" class="btn btn-danger btn-sm mx-1 px-3 shadow-sm">#}
+{#                    <i class="bi bi-x-circle me-1"></i> Reject#}
+                    </a>
+                </div>
+              </div>
+
+                {% elif req.status == "Completed" %}
+                    <div class="d-flex flex-column align-items-center">
+                    <span class="badge bg-success fs-6 mb-3">
+                      <i class="bi bi-check-circle-fill me-1"></i> Payment Pending
+                    </span>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                      <a href="/myapp/client_chat_to_freelancer/{{ req.FREELANCER.LOGIN.id }}#a" class="btn btn-outline-primary btn-sm shadow-sm px-3">
+                        <i class="bi bi-chat-dots-fill me-1"></i> Chat
+                      </a>
+
+                      <a href="/myapp/client_view_work_freelancer/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                        <i class="bi bi-briefcase-fill me-1"></i> Work Status
+                      </a>
+
+                        <a href="/myapp/client_review/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                        <i class="bi bi-briefcase-fill me-1"></i>review
+                         </a>
+                     </div>
+                    </div>
+
+                {% elif req.status == "Incompleted" %}
+                    <div class="d-flex flex-column align-items-center">
+                    <span class="badge bg-success fs-6 mb-3">
+                      <i class="bi bi-check-circle-fill me-1"></i> Work Pending
+                    </span>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                      <a href="/myapp/client_chat_to_freelancer/{{ req.FREELANCER.LOGIN.id }}#a" class="btn btn-outline-primary btn-sm shadow-sm px-3">
+                        <i class="bi bi-chat-dots-fill me-1"></i> Chat
+                      </a>
+
+                      <a href="/myapp/client_view_work_freelancer/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                        <i class="bi bi-briefcase-fill me-1"></i> Work Status
+                      </a>
+
+                        <a href="/myapp/client_review/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                        <i class="bi bi-briefcase-fill me-1"></i>review
+                         </a>
+                     </div>
+                    </div>
+
+                {% elif req.status == "Paid" %}
+                 <span class="badge bg-success fs-6 mb-3">
+                  <i class="bi bi-check-circle-fill me-1"></i> payment succesful
+                </span><br>
+                <a href="/myapp/client_review/{{ req.id }}#a" class="btn btn-outline-success btn-sm shadow-sm px-3">
+                    <i class="bi bi-briefcase-fill me-1"></i>review
+                </a>
+
+
+            {% elif req.status == "Rejected" %}
+              <span class="badge bg-danger fs-6 mb-3">
+                <i class="bi bi-x-octagon-fill me-1"></i> Rejected
+              </span>
+{#              <div>#}
+{#              <a href="/myapp/client_job_requests_approved/{{ req.id }}" class="btn btn-success btn-sm mx-1 px-3 shadow-sm">#}
+{#                <i class="bi bi-check-circle me-1"></i> Verify#}
+{#              </a>#}
+{#               </div>#}
+{#              <a href="/myapp/client_job_requests_rejected/{{ req.id }}" class="btn btn-danger btn-sm mx-1 px-3 shadow-sm">#}
+{#                <i class="bi bi-x-circle me-1"></i> Reject#}
+{#              </a>#}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center mt-5">
+    <i class="bi bi-exclamation-circle text-muted fs-1"></i>
+    <p class="text-muted mt-2">No job requests found.</p>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Hover Effect Styling -->
+<style>
+.text-gradient {
+  background: linear-gradient(to right, #0d6efd, #20c997);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hover-card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+</style>
+{% endblock %}

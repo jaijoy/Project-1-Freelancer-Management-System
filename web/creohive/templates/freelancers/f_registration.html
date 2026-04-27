@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelancer Registration</title>
+
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Freelancer Registration</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+
+
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter full name" required>
+
+        <label for="gmail">Email</label>
+        <input type="email" id="gmail" name="gmail" placeholder="Enter your email" required>
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+
+        <label for="qualification">Qualification</label>
+        <input type="text" id="qualification" name="qualification" placeholder="Enter your qualification" required>
+
+        <label for="skills">Skills</label>
+        <input type="text" id="skills" name="skills" placeholder="Enter your skills" required>
+
+        <label for="photo">Profile Photo</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="place">Place</label>
+        <input type="text" id="place" name="place" placeholder="Enter place" required>
+
+        <label for="post">Post</label>
+        <input type="text" id="post" name="post" placeholder="Enter post" required>
+
+        <label for="pin">Pin</label>
+        <input type="text" id="pin" name="pin" placeholder="Enter pin code" required>
+
+        <label for="district">District</label>
+        <input type="text" id="district" name="district" placeholder="Enter district" required>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+</body>
+</html>

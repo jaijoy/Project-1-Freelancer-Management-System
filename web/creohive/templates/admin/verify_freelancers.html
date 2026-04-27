@@ -1,0 +1,110 @@
+{% extends 'admin/adminindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancers Verification</title>
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+  <div class="card border-0 shadow">
+    <div class="card-header bg-gradient text-white text-center" style="background: linear-gradient(90deg, #007bff, #00c6ff);">
+      <h4 class="mb-0 fw-bold">Freelancers Verification</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0 text-secondary">Pending Verifications</h5>
+        <span class="badge bg-info text-dark">Total: {{ data|length }}</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle shadow-sm">
+          <thead class="table-primary text-center">
+            <tr>
+              <th>#</th>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Qualification</th>
+              <th>Skills</th>
+              <th>DOB</th>
+              <th>Gender</th>
+              <th>Place</th>
+              <th>Post</th>
+              <th>Pin</th>
+              <th>District</th>
+               <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data %}
+            <tr>
+              <td class="text-center fw-semibold">{{ forloop.counter }}</td>
+              <td class="text-center">
+                <img src="{{ i.photo.url }}" class="rounded-circle border border-2 border-primary" width="70" height="70" alt="Profile">
+              </td>
+              <td class="fw-semibold">{{ i.name }}</td>
+              <td>{{ i.gmail }}</td>
+              <td>{{ i.phone }}</td>
+              <td>{{ i.qualification }}</td>
+              <td>{{ i.skills }}</td>
+              <td>{{ i.dob }}</td>
+              <td>{{ i.gender }}</td>
+              <td>{{ i.place }}</td>
+              <td>{{ i.post }}</td>
+              <td>{{ i.pin }}</td>
+              <td>{{ i.district }}</td>
+
+                <td>
+                  {% if i.status == "Pending" %}
+                    <span class="badge bg-warning text-dark">{{ i.status }}</span>
+                  {% elif i.status == "Approved" %}
+                    <span class="badge bg-success">{{ i.status }}</span>
+                  {% elif i.status == "Rejected" %}
+                    <span class="badge bg-danger">{{ i.status }}</span>
+                  {% else %}
+                    <span class="badge bg-secondary">{{ i.status }}</span>
+                  {% endif %}
+                </td>
+
+                <td>
+                    {% if i.status == "pending" %}
+                          <a href="/myapp/admin_verify_freelancers_approved/{{ i.id }}" class="btn btn-success btn-sm mb-1">
+                            <i class="bi bi-check-circle"></i> Accept
+                          </a>
+                          <a href="/myapp/admin_verify_freelancers_rejected/{{ i.id }}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-x-circle"></i> Reject
+                          </a>
+                      {% elif i.status == "Approved" %}
+                          <a href="/myapp/admin_verify_freelancers_rejected/{{ i.id }}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-x-circle"></i> Reject
+                          </a>
+                      {% elif i.status == "Rejected" %}
+
+                        <a href="/myapp/admin_verify_freelancers_approved/{{ i.id }}" class="btn btn-success btn-sm mb-1">
+                            <i class="bi bi-check-circle"></i> Accept
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="14" class="text-center text-muted py-4">No freelancers pending verification.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

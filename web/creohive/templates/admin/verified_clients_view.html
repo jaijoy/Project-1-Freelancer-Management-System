@@ -1,0 +1,56 @@
+{%  extends 'admin/adminindex.html' %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Verification Table</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="">
+        <h1>Client Verification</h1>
+        <div >
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>SI</th>
+                        <th>Name</th>
+                        <th>Gmail</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Date of Birth</th>
+                        <th>Photo</th>
+                        <th>Place</th>
+                        <th>Post</th>
+                        <th>Pin</th>
+                        <th>District</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.gmail }}</td>
+                        <td>{{ i.phone }}</td>
+                        <td>{{ i.gender }}</td>
+                        <td>{{ i.dob }}</td>
+                        <td><img src="{{ i.photo.url }}" width="100px" height="100px" ></td>
+                        <td>{{ i.place }}</td>
+                        <td>{{ i.post }}</td>
+                        <td>{{ i.pin }}</td>
+                        <td>{{ i.district }}</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'client/client_index.html' %}
+{% block body %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg rounded-lg">
+        <div class="card-body">
+          <h3 class="text-center text-primary mb-3">Add Job</h3>
+
+          <form action="/myapp/client_manage_jobs_POST" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label for="title">Job Title</label>
+              <input type="text" name="title" class="form-control" placeholder="Enter job title"  pattern="[A-Za-z\s]+" title="Only letters are allowed" required>
+            </div>
+
+
+              <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea name="discription" class="form-control" rows="4" placeholder="Enter job description"
+                    pattern="[A-Za-z\s.,'-]{10,200}"
+                    title="Only letters, spaces, and basic punctuation (.,'-) are allowed. 10–200 characters required."
+                    required></textarea>
+                </div>
+
+{#            <div class="form-group">#}
+{#              <label for="description">Description</label>#}
+{#              <textarea name="discription" class="form-control" rows="4" placeholder="Enter job description"#}
+{#                         pattern="[A-Za-z\s.,'-]+" minlength="10"#}
+{#                         title="Only letters, spaces, and basic punctuation are allowed. Minimum 10 characters required."required></textarea>#}
+{#            </div>#}
+
+{#            <div class="form-group">#}
+{#              <label for="experience">Experience Required</label>#}
+{#              <input type="text" name="experience" class="form-control" placeholder="Enter required experience" pattern="^[0-9]+$" title="Only numbers are allowed"  required>#}
+{#            </div>#}
+                    <div class="form-group">
+  <label for="experience">Experience Required</label>
+  <input type="number"
+         name="experience"
+         class="form-control"
+         placeholder="Enter required experience (in years)"
+         min="0"
+         max="50"
+         oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);"
+         required>
+</div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-3 ">Add Job</button>
+
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

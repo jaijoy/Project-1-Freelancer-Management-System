@@ -1,0 +1,89 @@
+{% extends 'admin/adminindex.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Data Table</title>
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <style>
+    .filter-box {
+      margin-bottom: 20px;
+    }
+    .star {
+      color: gold;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .star-gray {
+      color: lightgray;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .rating {
+      white-space: nowrap;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+   <h3 class="text-center text-primary mb-4">Freelancer Reviews</h3>
+
+
+
+
+    <table id="registrationTable" class="table table-striped table-bordered">
+      <thead  class="table-dark">
+       <tr>
+              <th>SI</th>
+              <th>Freelancer</th>
+              <th>Freelancer Email</th>
+              <th>Client</th>
+              <th>Client Email</th>
+              <th>Review</th>
+              <th>Rating</th>
+            </tr>
+      </thead>
+      <tbody>
+         {% for i in data %}
+            <tr>
+              <td class="text-center">{{ forloop.counter }}</td>
+              <td>{{ i.FREELANCER.name }}</td>
+              <td>{{ i.FREELANCER.gmail }}</td>
+              <td>{{ i.CLIENT.name }}</td>
+              <td>{{ i.CLIENT.gmail }}</td>
+              <td>{{ i.review }}</td>
+          <td>
+              <div class="rating" title="{{ i.rating }}">
+                {% with Rating=i.rating|floatformat:0 %}
+                  {% for n in "12345"|make_list %}
+                    {% if forloop.counter <= Rating|add:0 %}
+                      <span class="star">★</span>
+                    {% else %}
+                      <span class="star-gray">★</span>
+                    {% endif %}
+                  {% endfor %}
+                {% endwith %}
+              </div>
+</td>
+
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+</body>
+</html>
+{% endblock %}
+
+

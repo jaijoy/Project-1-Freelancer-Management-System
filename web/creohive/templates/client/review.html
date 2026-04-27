@@ -1,0 +1,93 @@
+{%  extends 'client/client_index.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Freelancer Review</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .review-card {
+            max-width: 500px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .rating-stars input {
+            display: none;
+        }
+        .rating-stars label {
+            font-size: 30px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .rating-stars input:checked ~ label,
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label {
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+
+<div class="review-card">
+    <h3 class="text-center mb-4">Write a Review</h3>
+
+    <form method="POST" action="/myapp/client_review_POST/" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <input type="hidden" name="freelancer_id" value="{{ data.freelancer_id }}">
+        <input type="hidden" name="client_id" value="{{ data.client_id }}">
+
+        <div class="mb-3">
+            <label class="form-label">Your Review</label>
+            <textarea id="review" name="review" class="form-control" rows="4" placeholder="Write your feedback..." required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label d-block">Your Rating</label>
+            <div class="rating-stars text-center">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1">★</label>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4">Submit Review</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        const review = document.getElementById('review').value.trim();
+        const rating = document.querySelector('input[name="rating"]:checked');
+
+        if (review === "") {
+            alert("Please write your review before submitting.");
+            return false;
+        }
+
+        if (!rating) {
+            alert("Please select a rating before submitting.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
+{% endblock %}

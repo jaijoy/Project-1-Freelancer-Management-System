@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Client Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/login-form/css/style.css">
+<style>
+  /* --- Variables & Global Enhancements --- */
+  :root {
+    --accent-color: #5d5ddb; /* Modern Purple/Indigo */
+    --text-color: #fff;
+    --glass-background: rgba(255, 255, 255, 0.1); /* Lighter background for more shine */
+    --input-background: rgba(0, 0, 0, 0.4);
+  }
+
+  /* Full-screen background setup */
+  body.img {
+    background-size: cover;
+    background-attachment: fixed; /* Added for a smooth effect */
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif; /* Ensure Lato is applied globally */
+  }
+
+  /* Dark transparent overlay to make form pop */
+  .ftco-section {
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Slightly lighter overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0; /* Increased padding */
+  }
+
+  /* Glassy form box */
+  .login-wrap {
+    background: var(--glass-background);
+    backdrop-filter: blur(15px); /* Increased blur for a better effect */
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px; /* Softer corners */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.75); /* Stronger, deeper shadow */
+    padding: 40px; /* Increased padding inside the box */
+    animation: fadeIn 1s ease-out; /* Simple animation on load */
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Heading */
+  .heading-section {
+    color: var(--text-color);
+    font-weight: 900; /* Bolder title */
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+    margin-bottom: 0;
+  }
+
+  .login-wrap h3 {
+      font-size: 28px; /* Slightly larger heading */
+      color: var(--text-color);
+  }
+
+  /* Input fields */
+  .form-group {
+      margin-bottom: 20px; /* More space between fields */
+  }
+
+  .form-control {
+    border-radius: 12px; /* Slightly rounder than before */
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: var(--input-background);
+    color: var(--text-color);
+    padding: 10px 20px; /* Better internal padding */
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 10px var(--accent-color); /* Glowing focus effect */
+    border-color: var(--accent-color);
+    color: var(--text-color);
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Dropdown styling */
+  .form-control select {
+    appearance: none; /* Remove default arrow in some browsers */
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+  }
+
+  .form-control option {
+      background-color: #333; /* Darker options for contrast */
+      color: var(--text-color);
+  }
+
+  /* Button styling */
+  .btn-primary {
+    border-radius: 12px;
+    background-color: var(--accent-color);
+    border: none;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-primary:hover {
+    background-color: #7979f4; /* Lighter on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Make text readable */
+  label, p, a {
+    color: var(--text-color);
+    font-weight: 400;
+  }
+
+  /* Link styling */
+  p.text-center {
+      margin-top: 15px;
+      font-size: 14px;
+  }
+
+  a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #ffd700; /* Gold/yellow accent on hover */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+  }
+
+  /* Password toggle icon */
+  .field-icon {
+    right: 15px; /* Adjust position */
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+  }
+</style>
+
+
+
+
+    <script>
+      function validateAge() {
+        const dob = document.querySelector('input[name="dob"]').value;
+        if (!dob) {
+            alert("Please enter your Date of Birth.");
+            return false;
+        }
+
+        const birthDate = new Date(dob);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        if (age < 18) {
+          alert("You must be at least 18 years old to register.");
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </head>
+
+
+  <body class="img" style="background-image: url(/static/login-form/images/bg.jpg);">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-5">
+            <div class="login-wrap p-4">
+              <h3 class="mb-4 text-center">Create Your Account</h3>
+
+              <form action="/myapp/client_registration_POST" method="POST" enctype="multipart/form-data" onsubmit="return validateAge()" class="signin-form">
+                {% csrf_token %}
+                      {% if messages %}
+                          {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+                              {{ message }}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                <div class="form-group">
+                    <label class="sr-only" for="name">Full Name</label>
+                    <input id="name" type="text" name="name" class="form-control" placeholder="Full Name" pattern="^[A-Za-z ]+$" title="Only letters and spaces allowed" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="gmail">Email</label>
+                    <input id="gmail" type="email" name="gmail" class="form-control" placeholder="Email"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email (example: name@example.com)" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="phone">Phone Number</label>
+                    <input id="phone" type="tel" name="phone" class="form-control" placeholder="Phone Number"
+                           pattern="[6-9]{1}[0-9]{9}" title="Enter a 10-digit phone number starting with 6, 7, 8, or 9" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="gender">Gender</label>
+                    <select id="gender" name="gender" class="form-control" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="dob">Date of Birth</label>
+                    <input id="dob" type="date" name="dob" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="photo">Upload Photo</label>
+                    <input id="photo" type="file" name="photo" class="form-control" accept=".jpg, .jpeg, .png" title="Upload a .jpg, .jpeg, or .png image" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="place">Place</label>
+                    <input id="place" type="text" name="place" class="form-control" placeholder="Place"
+                           pattern="^[A-Za-z ]+$" title="Only letters and spaces allowed" required>
+
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="post">Post</label>
+                    <input id="post" type="text" name="post" class="form-control" placeholder="Post"
+                           pattern="^[A-Za-z ]+$" title="Only letters and spaces allowed" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="pin">PIN Code</label>
+                    <input id="pin" type="text" name="pin" class="form-control" placeholder="PIN Code"
+                           pattern="^[1-9][0-9]{5}$" title="Enter a valid 6-digit PIN" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="district">District</label>
+                    <input id="district" type="text" name="district" class="form-control" placeholder="District"
+                           pattern="^[A-Za-z ]+$" title="Only letters and spaces allowed" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="username">Username</label>
+                    <input id="username" type="text" name="username" class="form-control" placeholder="Username"
+                           pattern="^[a-z0-9]{1,15}$" title="Username must contain 1–15 lowercase letters or digits only" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="password-field">Password</label>
+                    <input id="password-field" type="password" name="password" class="form-control" placeholder="Password"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="At least 8 characters with uppercase, lowercase, and a number" required>
+                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                  <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
+                </div>
+                <p class="text-center">Already have an account? <a href="/myapp/login">Login here</a></p>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/static/login-form/js/jquery.min.js"></script>
+    <script src="/static/login-form/js/popper.js"></script>
+    <script src="/static/login-form/js/bootstrap.min.js"></script>
+    <script src="/static/login-form/js/main.js"></script>
+
+  </body>
+</html>
+
+{#<!doctype html>#}
+

@@ -1,0 +1,64 @@
+{%  extends 'client/client_index.html' %}
+{% block body %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Job</title>
+</head>
+<body>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg rounded-lg">
+        <div class="card-body">
+
+                    <h2 class="text-center text-primary mb-3 ">Edit Job</h2>
+
+                    <form action="/myapp/client_manage_jobs_edit_POST" method="POST">{% csrf_token %}
+                        <input type="hidden" value="{{ data.id }}" name="id" >
+
+                    <div class="form-group">
+                        <label>Job Title:</label>
+                        <input type="text" value="{{ data.title }}" name="title" class="form-control"  pattern="[A-Za-z\s]+" title="Only letters are allowed"required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <input name="discription" value="{{ data.discription }}"class="form-control"  pattern="[A-Za-z\s.,'-]+" minlength="10"
+                         title="Only letters, spaces, and basic punctuation are allowed. Minimum 10 characters required." required></input>
+                    </div>
+
+                        <div class="form-group">
+                          <label>Experience Required:</label>
+                        <input type="text" name="experience" value="{{ data.experience }}"class="form-control"
+                                min="0" max="50" oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);"  required>
+                         </div>
+
+{#                    <div class="form-group">#}
+{#                         <label>Date:</label>#}
+{#                        <input type="date" name="date" value="{{ data.date|date:'Y-m-d' }}" class="form-control"required>#}
+{##}
+{#                    </div>#}
+
+{#                    <div class="form-group">#}
+{#                         <label>Status:</label><br>#}
+{#                        <select name="status" class="form-control" value="{{ data.status }}"  required>#}
+{#                            <option value="" disabled selected > Select status</option>#}
+{#                            <option value="Open" {% if data.status == "Open" %}selected{% endif %}>Open</option>#}
+{#                            <option value="Closed" {% if data.status == "Closed" %}selected{% endif %}>Closed</option>#}
+{#                        </select>#}
+{#                    </div>#}
+
+                        <button type="submit" class="btn btn-primary btn-block mt-3 ">Edit Job</button>
+                    </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+{% endblock %}

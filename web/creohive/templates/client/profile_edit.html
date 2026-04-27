@@ -1,0 +1,114 @@
+{% extends 'client/client_index.html' %}
+{% block body %}
+ <script>
+        function validateAge() {
+            const dob = document.querySelector('input[name="dob"]').value;
+            if (!dob) return false;
+
+            const birthDate = new Date(dob);
+            const today = new Date();
+
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age < 18) {
+                alert("You must be at least 18 years old to register.");
+                return false;
+            }
+            return true;
+        }
+
+ </script>
+<div class="container mt-5 mb-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">Edit Profile</h2>
+
+        <form action="/myapp/client_profile_edit_POST" method="POST" enctype="multipart/form-data" onsubmit="return validateAge()">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ client.id }}">
+
+            <div class="mb-3">
+                <label for="name" class="form-label" >Name</label>
+                <input type="text" id="name" name="name" class="form-control" value="{{ client.name }}"
+                       pattern="^[A-Za-z ]+$" title="Name should contain only letters and spaces"required>
+            </div>
+
+            <div class="mb-3">
+                <label for="gmail" class="form-label">Email</label>
+                <input type="email" id="gmail" name="gmail" class="form-control" value="{{ client.gmail }}"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Enter a valid email address (example: name@example.com)" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" id="phone" name="phone" class="form-control" value="{{ client.phone }}"
+                        pattern="[6-9]{1}[0-9]{9}"
+                        title="Enter a 10-digit phone number starting with 6, 7, 8, or 9" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" name="gender" class="form-select" required>
+                    <option value="Male" {% if client.gender == 'Male' %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if client.gender == 'Female' %}selected{% endif %}>Female</option>
+                    <option value="Other" {% if client.gender == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" id="dob" name="dob" class="form-control" value="{{ client.dob|date:'Y-m-d' }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="photo" class="form-label">Profile Photo</label>
+                <input type="file" id="photo" name="photo" class="form-control"
+                       accept=".jpg, .jpeg, .png" title="Upload a .jpg, .jpeg, or .png image file">
+                {% if client.photo %}
+
+                    <div class="mt-2">
+                        <small class="text-muted">Current photo:</small><br>
+                        <img src="{{ client.photo.url }}" alt="Profile Photo" width="100" class="rounded mt-1 border">
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="place" class="form-label">Place</label>
+                <input type="text" id="place" name="place" class="form-control" value="{{ client.place }}"
+                       pattern="^[A-Za-z ]+$" title="Place should contain only letters and spaces"required>
+            </div>
+
+            <div class="mb-3">
+                <label for="post" class="form-label">Post</label>
+                <input type="text" id="post" name="post" class="form-control" value="{{ client.post }}"
+                       pattern="^[A-Za-z ]+$" title="Post should contain only letters and spaces" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="pin" class="form-label">Pin</label>
+                <input type="text" id="pin" name="pin" class="form-control" value="{{ client.pin }}"
+                       pattern="^[1-9][0-9]{5}$" title="Enter a valid 6-digit  PIN code (cannot start with 0)"required>
+            </div>
+
+            <div class="mb-3">
+                <label for="district" class="form-label">District</label>
+                <input type="text" id="district" name="district" class="form-control" value="{{ client.district }}"
+                        pattern="^[A-Za-z ]+$" title="District should contain only letters and spaces"required>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Update Profile</button>
+                <a href="/myapp/client_profile" class="btn btn-secondary px-4 ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

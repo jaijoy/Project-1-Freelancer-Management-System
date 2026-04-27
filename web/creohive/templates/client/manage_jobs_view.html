@@ -1,0 +1,54 @@
+{%  extends 'client/client_index.html' %}
+{% block body %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Jobs</title>
+
+</head>
+<body>
+
+<div >
+    <h2>All Jobs</h2>
+    <div >
+        <table  class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>SI</th>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Experience</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.discription }}</td>
+                    <td>{{ i.experience }}</td>
+                    <td>{{ i.date }}</td>
+
+                    <td>{{ i.status }}</td>
+                    <td>
+                        <a href="/myapp/client_manage_jobs_edit/{{ i.id }}#a" class="btn btn-primary btn-sm" >Edit</a>
+                        <a href="/myapp/client_manage_jobs_delete/{{ i.id }}#a" class="btn badge-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}
